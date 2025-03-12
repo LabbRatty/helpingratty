@@ -1,4 +1,10 @@
-strTest = "In publishing and graphic design, Lorem george.smith@google.com ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on george.smith@google.com meaningful content. Lorem henry@yahoo.com ipsum may be used as a placeholder before final copy is available. It is also used to temporarily (test@gmail.com) replace text in a process called greeking, which allows designers to consider the form of a webpage or newmail@hotmail.com. publication, without the meaning of the text influencing the design."
+# Input strings
+strText1 = "In publishing and graphic design, Lorem george.smith@google.com ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on george.smith@google.com meaningful content. Lorem henry@yahoo.com ipsum may be used as a placeholder before final copy is available. It is also used to temporarily (test@gmail.com) replace text in a process called greeking, which allows designers to consider the form of a webpage or newmail@hotmail.com. publication, without the meaning of the text influencing the design."
+
+strText2 = "The Internet (or internet)[a] is the global@gmail.com system of interconnected computer networks that uses the Internet protocol suite (TCP/IP)[dave@hotmail.com] to communicate between networks and devices. It is a network of networks that consists of private, public, academic, business, and government networks of local to global scope, linked by a broad array of electronic, wireless, and optical networking technologies. The Internet carries a vast range of bill@network.us information resources and services, such as the inter-linked hypertext@linkedin.org documents and applications of the World Wide Web (WWW), electronic mail, telephony, and file sharing."
+
+# Predefined list of emails
+listEmail = ["bill@network.us", "george.smith@google.com", "test@gmail.com"]
 
 def cleanHalf(strHalf):
     strClean = ""
@@ -8,14 +14,14 @@ def cleanHalf(strHalf):
         if strChar.isalnum() or strChar == "-" or strChar == "_" or strChar == ".":
             strClean += strChar
         else:
-            break
+            break  # Stop at any character that's not allowed
     return strClean
 
 def returnEmails(strText):
     liText = strText.split()
     liEmails = []
 
-    # Extract words with '@' to identify potential email addresses
+    # Extract words that contain '@' to identify potential email addresses
     for strWord in liText:
         if "@" in strWord:
             liEmails.append(strWord)
@@ -25,13 +31,22 @@ def returnEmails(strText):
         liSingle = strEmail.split("@")  # Split email into local and domain parts
         
         # Clean both parts
-        liSingle[0] = cleanHalf(liSingle[0])  # Clean local part
-        liSingle[1] = cleanHalf(liSingle[1])  # Clean domain part
+        liSingle[0] = cleanHalf(liSingle[0])  # Clean the local part
+        liSingle[1] = cleanHalf(liSingle[1])  # Clean the domain part
 
-        # Join the cleaned parts back together
+        # Rejoin the cleaned email
         liEmails[intIndex] = "@".join(liSingle)
 
-    print(liEmails)
+    return liEmails
 
-# Test with the string containing emails
-returnEmails(strTest)
+# Get emails from strText1 and strText2
+emailsFromText1 = returnEmails(strText1)
+emailsFromText2 = returnEmails(strText2)
+
+# Get only the cleaned emails from listEmail (separate processing)
+emailsFromList = returnEmails(" ".join(listEmail))  # Treat listEmail as input by converting to a string
+
+# Output results
+print("Emails from strText1:", emailsFromText1)
+print("Emails from strText2:", emailsFromText2)
+print("Emails from listEmail:", emailsFromList)
