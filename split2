@@ -1,0 +1,37 @@
+strTest = "In publishing and graphic design, Lorem george.smith@google.com ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on george.smith@google.com meaningful content. Lorem henry@yahoo.com ipsum may be used as a placeholder before final copy is available. It is also used to temporarily (test@gmail.com) replace text in a process called greeking, which allows designers to consider the form of a webpage or newmail@hotmail.com. publication, without the meaning of the text influencing the design."
+
+def cleanHalf(strHalf):
+    strClean = ""
+    
+    # Iterate through the characters and clean up the string
+    for strChar in strHalf:
+        if strChar.isalnum() or strChar == "-" or strChar == "_" or strChar == ".":
+            strClean += strChar
+        else:
+            break
+    return strClean
+
+def returnEmails(strText):
+    liText = strText.split()
+    liEmails = []
+
+    # Extract words with '@' to identify potential email addresses
+    for strWord in liText:
+        if "@" in strWord:
+            liEmails.append(strWord)
+
+    # Process each email address found
+    for intIndex, strEmail in enumerate(liEmails):
+        liSingle = strEmail.split("@")  # Split email into local and domain parts
+        
+        # Clean both parts
+        liSingle[0] = cleanHalf(liSingle[0])  # Clean local part
+        liSingle[1] = cleanHalf(liSingle[1])  # Clean domain part
+
+        # Join the cleaned parts back together
+        liEmails[intIndex] = "@".join(liSingle)
+
+    print(liEmails)
+
+# Test with the string containing emails
+returnEmails(strTest)
